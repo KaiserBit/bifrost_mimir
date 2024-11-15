@@ -1,0 +1,27 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# Environment Variables
+.env
+
+# MongoDB
+mongo-data-mimir/
+
+# RabbitMQ
+rabbitmq-data-mimir/
+
+# Logs
+*.log
+
+# VSCode
+.vscode/

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+aio-pika
+pydantic
+pydantic-settings
+pymongo
+requests
+python-dotenv
+loguru

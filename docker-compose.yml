@@ -1,0 +1,44 @@
+# docker-compose.yml
+
+version: '3.8'
+services:
+  mimir:
+    build: .
+    container_name: mimir
+    env_file:
+      - .env
+    ports:
+      - "8002:8002"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    volumes:
+      - .:/app  # For live code updates; remove in production
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb_mimir
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: mimir
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo-data-mimir:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_mimir
+    ports:
+      - "5673:5672"      # RabbitMQ
+      - "15673:15672"    # RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: your_password
+    volumes:
+      - rabbitmq-data-mimir:/var/lib/rabbitmq
+
+volumes:
+  mongo-data-mimir:
+  rabbitmq-data-mimir:
